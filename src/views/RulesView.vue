@@ -25,7 +25,7 @@ const rules = ["Each player starts with the same amount of HP and Mana.",
 
 #background {
   width: 100vw;
-    height: 100vh;
+  height: 100vh;
   background-image: url(@/assets/images/rules/background.jpeg);
   background-size: cover;
   background-position: center;
