@@ -12,11 +12,11 @@ defineProps({
 </script>
 
 <template>
-    <img class="char" :style="{height: height}" draggable="false" src="@/assets/images/content/medivh.gif" alt="">
+    <img :style="{height: height}" draggable="false" src="@/assets/images/content/medivh.gif" alt="">
 </template>
   
 <style scoped>
-.char {
+.img {
     width: auto;
 }
 </style>
