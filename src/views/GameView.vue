@@ -3,7 +3,7 @@ import { onMounted, onBeforeUnmount } from 'vue';
 import PlayerHero from '@/components/PlayerHero.vue';
 
 /// Variables
-
+var charHeight = "16.1%";
 /// Methods
 const calculateSize = () => {
   var gameAspectRatio = 1.4347202296;
@@ -44,8 +44,9 @@ onBeforeUnmount(() => {
 <template>
   <div class="center">
     <div class="game">
-      <PlayerHero  class="char inactive-char" gifSrc="@/assets/images/content/medivh.gif" height="16.5%"/>
-      <PlayerHero  class="char active-char" gifSrc="@/assets/images/content/medivh.gif" height="16.5%"/>
+      <!-- TODO: Fix gifsrc  -->
+      <PlayerHero  class="char inactive-char" src="@/assets/images/content/medivh.gif" :height="charHeight"/>
+      <PlayerHero  class="char active-char" src="@/assets/images/content/medivh.gif" :height="charHeight"/>
     </div>
   </div>
 </template>
@@ -68,13 +69,13 @@ onBeforeUnmount(() => {
 }
 
 .active-char {
-  bottom: 15%;
-  left: 45.7%;
+  bottom: 15.6%;
+  left: 45.8%;
 }
 
 .inactive-char {
-  top: 10.5%;
-  left: 45.8%;
+  top: 10.1%;
+  left: 45.9%;
 }
 
 .center {

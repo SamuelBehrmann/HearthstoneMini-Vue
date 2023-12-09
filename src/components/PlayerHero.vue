@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-    gifSrc: {
+    src: {
         type: String,
         required: true
     },
