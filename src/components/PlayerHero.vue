@@ -13,7 +13,7 @@ const charHeight = "16.1%";
 </script>
 
 <template>
-    <img :style="{height: charHeight}" draggable="false" src="@/assets/images/content/medivh.gif">
+    <img class="playerHero" :style="{height: charHeight}" draggable="false" src="@/assets/images/content/medivh.gif">
 </template>
 
 <style scoped>

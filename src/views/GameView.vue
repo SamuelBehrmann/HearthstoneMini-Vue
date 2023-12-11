@@ -7,11 +7,14 @@ import Deck from '@/components/Deck.vue';
 import axios from 'axios';
 import CONSTANTS from '../common/constants.js';
 import { gameState } from '@/stores/gameState';
-// import { watch } from 'vue';
+import { useDraggedStore } from '@/stores/dragged';
 import { storeToRefs } from 'pinia';
+import router from '@/router';
+import HearthstoneButton from '@/components/HearthstoneButton.vue';
 
 /// Variables
-const {connected, data} = storeToRefs(gameState());
+const { connected, data } = storeToRefs(gameState());
+const draggedStore = useDraggedStore();
 
 /// Methods
 const calculateSize = () => {
@@ -30,6 +33,7 @@ const calculateSize = () => {
   }
 }
 
+
 const resizeHandler = () => {
   var newSize = calculateSize();
   var game = document.getElementsByClassName("game")[0];
@@ -37,13 +41,39 @@ const resizeHandler = () => {
   game.style.height = newSize.height;
   game.style.width = newSize.width;
 }
+const endTurn = async () => {
+  console.log("End Turn");
+  await axios.get(CONSTANTS.endpoint + "/endTurn").catch((error) => {
+    console.log(error);
+  })
+}
+const undo = async () => {
+  console.log("Undo");
+  await axios.get(CONSTANTS.endpoint + "/undo").catch((error) => {
+    console.log(error);
+  })
+}
+
+const redo = async () => {
+  console.log("Redo");
+  await axios.get(CONSTANTS.endpoint + "/redo").catch((error) => {
+    console.log(error);
+  })
+}
+
+const exit = async () => {
+  console.log("Exit");
+  await axios.get(CONSTANTS.endpoint + "/exitGame").catch((error) => {
+    console.log(error);
+  })
+  router.replace("/");
+}
 
 const drawCard = async () => {
   console.log("Draw Card");
   await axios.get(CONSTANTS.endpoint + "/drawCard").catch((error) => {
     console.log(error);
   })
-
 }
 
 const placeCard = async (data) => {
@@ -60,25 +90,31 @@ const placeCard = async (data) => {
   })
 }
 
-const directAttack = async (data) => {
+const directAttack = async (event) => {
   console.log("Direct Attack");
-  await axios.post(CONSTANTS.endpoint + "/direckAttack", {
-    "activeFieldIndex": data.sourceIndex
-  },{
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  }).catch((error) => {
-    console.log(error);
-  })
+  draggedStore.dragged = null;
+  var sourceIndex = parseInt(event.dataTransfer.getData("text/plain"));
+
+  if (sourceIndex) {
+    await axios.post(CONSTANTS.endpoint + "/directAttack", {
+      "activeFieldIndex": sourceIndex
+    }, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
 }
 
 const attack = async (data) => {
-  console.log("Attack", data);
+  console.log("Attack");
   await axios.post(CONSTANTS.endpoint + "/attack", {
     "inactiveFieldIndex": data.targetIndex,
     "activeFieldIndex": data.sourceIndex
-  },{
+  }, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -100,16 +136,23 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <header>
+    <nav>
+      <a @click="undo()">Undo</a>
+      <a @click="redo()">Redo</a>
+      <a @click="exit()">Exit</a>
+    </nav>
+  </header>
   <div class="center">
     <div v-if="connected" class="game">
       <!-- TODO: Fix gifsrc  -->
       <Hand class="hand-inactive" :is-active="false" :hand-cards="data.players[1].gamebar.hand" />
-      <PlayerHero class="char inactive-char" src="@/assets/images/content/medivh.gif"/>
-      <Deck class="deck-inactive" :is-active="false" :size="data.players[1].gamebar.deck.length"
-        draggable="false" />
+      <PlayerHero class="char inactive-char" src="@/assets/images/content/medivh.gif" @drop="directAttack" />
+      <Deck class="deck-inactive" :is-active="false" :size="data.players[1].gamebar.deck.length" draggable="false" />
       <Fieldbar class="fieldbar-inactive" :slots="data.players[1].fieldbar.cardarea.row" />
-
-      <Fieldbar class="fieldbar-active" @placeCard="placeCard" @attack="attack" @direckAttack="directAttack" :slots="data.players[0].fieldbar.cardarea.row" />
+      <HearthstoneButton id="endTurnButton" label="End Turn" :variant="'gold'" @hearthstone-button-clicked="endTurn()"/>
+      <Fieldbar class="fieldbar-active" @placeCard="placeCard" @attack="attack"
+        :slots="data.players[0].fieldbar.cardarea.row" />
       <PlayerHero class="char active-char" src="@/assets/images/content/medivh.gif" />
       <Deck class="deck-active" @drawCard="drawCard()" :size="data.players[0].gamebar.deck.length" />
       <Hand class="hand-active" :hand-cards="data.players[0].gamebar.hand" />
@@ -129,6 +172,16 @@ onBeforeUnmount(() => {
   pointer-events: none;
 }
 
+#endTurnButton {
+  pointer-events: all;
+  position: absolute;
+  bottom: 50.5%;
+  height: 8%;
+  width: 13%;
+  right: 4%;
+  z-index: 10000;
+  scale: 80%;
+}
 .deck-active {
   pointer-events: all;
   position: absolute;
