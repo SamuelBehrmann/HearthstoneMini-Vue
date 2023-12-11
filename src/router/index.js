@@ -7,10 +7,10 @@ const router = createRouter({
     {
       component: HomeView,
       meta: {
-        title: 'Home',
+        title: 'Home'
       },
       name: 'home',
-      path: '/',
+      path: '/'
     },
     {
       // route level code-splitting
@@ -18,18 +18,26 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/GameView.vue'),
       meta: {
-        title: 'Game',
+        title: 'Game'
       },
       name: 'game',
-      path: '/game',
+      path: '/game'
+    },
+    {
+      component: () => import('../views/GameSettings.vue'),
+      meta: {
+        title: 'GameSettings'
+      },
+      name: 'gameSettings',
+      path: '/gameSettings'
     },
     {
       component: () => import('../views/RulesView.vue'),
       meta: {
-        title: 'Rules',
+        title: 'Rules'
       },
       name: 'rules',
-      path: '/rules',
+      path: '/rules'
     }
   ]
 })

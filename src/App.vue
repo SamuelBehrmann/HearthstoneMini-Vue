@@ -10,8 +10,10 @@ var state = gameState()
   <header>
     <nav>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/game">Play</RouterLink>
       <RouterLink to="/rules">Rules</RouterLink>
+      <RouterLink to="/gameSettings">New Game</RouterLink>
+      <RouterLink to="/game">Game</RouterLink>
+
     </nav>
   </header>
 

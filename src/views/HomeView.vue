@@ -1,22 +1,28 @@
 <script setup>
 import HearthstoneButton from '@/components/HearthstoneButton.vue';
 import { useRouter } from 'vue-router';
+
 const router = useRouter()
 
-const openGamePage = () => {
-  router.push('/game');
-}
+// const openGamePage = () => {
+//   router.push('/game');
+// }
 
 const openRulesPage = () => {
   router.push('/rules');
+}
+
+const openGameSettings = () => {
+  router.push('/GameSettings')
 }
 </script>
 
 <template>
   <main>
     <div class="button-panel">
-      <HearthstoneButton @hearthstone-button-clicked="openGamePage()" label="Play" />
+      <HearthstoneButton @hearthstone-button-clicked="openGameSettings()" label="New Game" />
       <HearthstoneButton @hearthstone-button-clicked="openRulesPage()" label="Rules" />
+<!--      <HearthstoneButton @hearthstone-button-clicked="openGameSettings" label="Game Settings" />-->
     </div>
   </main>
 </template>
