@@ -7,10 +7,12 @@ import Deck from '@/components/Deck.vue';
 import axios from 'axios';
 import CONSTANTS from '../common/constants.js';
 import { gameState } from '@/stores/gameState';
+import { useDraggedStore } from '@/stores/dragged';
 import { storeToRefs } from 'pinia';
 
 /// Variables
-const {connected, data} = storeToRefs(gameState());
+const { connected, data } = storeToRefs(gameState());
+const draggedStore = useDraggedStore();
 
 /// Methods
 const calculateSize = () => {
@@ -59,17 +61,23 @@ const placeCard = async (data) => {
   })
 }
 
-const directAttack = async (data) => {
+const directAttack = async (event) => {
   console.log("Direct Attack");
-  await axios.post(CONSTANTS.endpoint + "/direckAttack", {
-    "activeFieldIndex": data.sourceIndex
-  },{
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  }).catch((error) => {
-    console.log(error);
-  })
+  draggedStore.dragged = null;
+  var sourceIndex = parseInt(event.dataTransfer.getData("text/plain"));
+
+  if (sourceIndex) {
+    await axios.post(CONSTANTS.endpoint + "/directAttack", {
+      "activeFieldIndex": sourceIndex
+    }, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
 }
 
 const attack = async (data) => {
@@ -77,7 +85,7 @@ const attack = async (data) => {
   await axios.post(CONSTANTS.endpoint + "/attack", {
     "inactiveFieldIndex": data.targetIndex,
     "activeFieldIndex": data.sourceIndex
-  },{
+  }, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -103,12 +111,12 @@ onBeforeUnmount(() => {
     <div v-if="connected" class="game">
       <!-- TODO: Fix gifsrc  -->
       <Hand class="hand-inactive" :is-active="false" :hand-cards="data.players[1].gamebar.hand" />
-      <PlayerHero class="char inactive-char" src="@/assets/images/content/medivh.gif"/>
-      <Deck class="deck-inactive" :is-active="false" :size="data.players[1].gamebar.deck.length"
-        draggable="false" />
+      <PlayerHero class="char inactive-char" src="@/assets/images/content/medivh.gif" @drop="directAttack"/>
+      <Deck class="deck-inactive" :is-active="false" :size="data.players[1].gamebar.deck.length" draggable="false" />
       <Fieldbar class="fieldbar-inactive" :slots="data.players[1].fieldbar.cardarea.row" />
 
-      <Fieldbar class="fieldbar-active" @placeCard="placeCard" @attack="attack" @direckAttack="directAttack" :slots="data.players[0].fieldbar.cardarea.row" />
+      <Fieldbar class="fieldbar-active" @placeCard="placeCard" @attack="attack"
+        :slots="data.players[0].fieldbar.cardarea.row" />
       <PlayerHero class="char active-char" src="@/assets/images/content/medivh.gif" />
       <Deck class="deck-active" @drawCard="drawCard()" :size="data.players[0].gamebar.deck.length" />
       <Hand class="hand-active" :hand-cards="data.players[0].gamebar.hand" />

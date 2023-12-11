@@ -20,7 +20,6 @@ const placeCard = (sourceIndex, targetIndex) => {
     emit('placeCard', {
         sourceIndex: sourceIndex,
         targetIndex: targetIndex
-
     })
 }
 
@@ -66,6 +65,7 @@ ondrop = (event) => {
     var isHandSource = false;
     var isFieldSource = false;
     var isFieldTarget = false;
+    var isPlayerTarget = false;
 
     while (currentElement !== null) {
         if (currentElement.classList && currentElement.classList.contains('hand-active')) {
@@ -83,6 +83,7 @@ ondrop = (event) => {
             isFieldTarget = true;
             break;
         } else if (currentElement.classList && currentElement.classList.contains('char')) {
+            isPlayerTarget = true;
             break;
         }
         currentElement = currentElement.parentElement;
