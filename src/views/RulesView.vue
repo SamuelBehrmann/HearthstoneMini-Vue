@@ -1,5 +1,6 @@
 
 <script setup>
+
 const rules = ["Each player starts with the same amount of HP and Mana.",
   "Each round always begins on the same game board.",
   "Each player starts with 5 Cards on his hand and 30 in the deck.",
@@ -13,7 +14,7 @@ const rules = ["Each player starts with the same amount of HP and Mana.",
 
 <template>
   <div id="background"></div>
-  <div class="rules">
+  <div class="rules" >
     <div class="rule" v-for="rule in rules">
       <img class="indicator" src="@/assets/images/rules/indicator.webp" alt="">
       <span>{{ rule }}</span>

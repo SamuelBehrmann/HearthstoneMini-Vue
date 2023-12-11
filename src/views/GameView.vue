@@ -7,7 +7,6 @@ import Deck from '@/components/Deck.vue';
 import axios from 'axios';
 import CONSTANTS from '../common/constants.js';
 import { gameState } from '@/stores/gameState';
-import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 /// Variables
@@ -74,7 +73,7 @@ const directAttack = async (data) => {
 }
 
 const attack = async (data) => {
-  console.log("Attack", data);
+  console.log("Attack");
   await axios.post(CONSTANTS.endpoint + "/attack", {
     "inactiveFieldIndex": data.targetIndex,
     "activeFieldIndex": data.sourceIndex

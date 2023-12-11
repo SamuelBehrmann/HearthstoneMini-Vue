@@ -61,10 +61,11 @@ ondrop = (event) => {
     var sourceIndex = event.dataTransfer.getData("text/plain")
     var targetIndex = event.target.getAttribute('aria-valuenow')
 
+    if (!sourceIndex || !targetIndex) return;
+
     var isHandSource = false;
     var isFieldSource = false;
     var isFieldTarget = false;
-    var isPlayerTarget = false;
 
     while (currentElement !== null) {
         if (currentElement.classList && currentElement.classList.contains('hand-active')) {
@@ -82,7 +83,6 @@ ondrop = (event) => {
             isFieldTarget = true;
             break;
         } else if (currentElement.classList && currentElement.classList.contains('char')) {
-            isPlayerTarget = true;
             break;
         }
         currentElement = currentElement.parentElement;
@@ -103,13 +103,13 @@ ondragend = (event) => {
         slots[i].style.border = 'none';
     }
 }
+
 </script>
 
 <template>
     <div class="fieldbar" draggable="false">
-        <div v-for="(slot, i) in slots" class="slot" :class="'slot' + i" :style="{ pointerEvents: 'all' }"
-            :aria-valuenow="i" draggable="true">
-            <Card v-if="slot.card !== 'none'" class="card" :card-id="slot.card.id" />
+        <div v-for="(slot, i) in slots" class="slot" :class="'slot' + i" :style="{ pointerEvents: 'all' }" :aria-valuenow="i" draggable="false">
+            <Card v-if="slot.card !== 'none'" :aria-valuenow="i" class="card" :card-id="slot.card.id" draggable="true"/>
         </div>
     </div>
 </template>

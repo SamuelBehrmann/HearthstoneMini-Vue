@@ -38,7 +38,7 @@ const setData = (event) => {
   </div>
 </template>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 img {
   height: 100%;
 
