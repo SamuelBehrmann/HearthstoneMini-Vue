@@ -1,7 +1,6 @@
 <script setup>
-// Get slots from backend
 defineProps({
-    id: {
+    cardId: {
         type: String,
         required: true
     },
@@ -10,10 +9,13 @@ defineProps({
 </script>
 
 <template>
-    <div class="card">
-
-    </div>
+        <img :src='"https://art.hearthstonejson.com/v1/render/latest/deDE/512x/" + cardId + ".png"'>
 </template>
 
 
-<style></style>
+<style scoped>
+img {
+    height: 100%;
+}
+
+</style>
