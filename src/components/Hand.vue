@@ -49,7 +49,7 @@ img {
   width: 100%;
   display: flex;
   justify-content: center;
-  transform: perspective(50em) rotateX(-60deg) translateY(-20%) translateX(-1.2%);
+  // transform: perspective(50em) rotateX(-60deg) translateY(-20%) translateX(-1.2%);
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   position: absolute;
