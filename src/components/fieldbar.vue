@@ -1,36 +1,115 @@
 <script setup>
 // Imports --------
 import Card from './Card.vue'
+import { useDraggedStore } from '@/stores/dragged';
 
 // Define ---------
 const emit = defineEmits()
-
+defineProps({
+    slots: {
+        type: Array,
+        default: []
+    },
+})
 
 // Variables ------
-const cardHeight = "18%";
+var draggedStore = useDraggedStore()
 
 // Methods --------
-const placeCard = () => {
-    emit('placeCard')
+const placeCard = (sourceIndex, targetIndex) => {
+    emit('placeCard', {
+        sourceIndex: sourceIndex,
+        targetIndex: targetIndex
+
+    })
 }
 
-// TODO: Get slots from backend
-var slots = [
-    "EX1_001",
-    "EX1_001",
-    "EX1_001",
-    "EX1_001",
-    "EX1_001",
-]
+const attack = (sourceIndex, targetIndex) => {
+    emit('attack', {
+        sourceIndex: sourceIndex,
+        targetIndex: targetIndex
+    })
+}
 
+const directAttack = (sourceIndex) => {
+    emit('directAttack', {
+        sourceIndex: sourceIndex
+    });
+}
+
+// listeners ------
+ondragstart = (event) => {
+    draggedStore.dragged = event.target;
+    event.dataTransfer.setData("text/plain", event.target.getAttribute('aria-valuenow'));
+    var slots = document.getElementsByClassName('slot');
+    for (var i = 0; i < slots.length; i++) {
+        slots[i].style.border = ' 1px solid black';
+    }
+}
+
+ondragover = (event) => {
+    event.preventDefault();
+}
+
+ondragenter = (event) => {
+    event.preventDefault();
+}
+
+ondrop = (event) => {
+    var currentElement = draggedStore.dragged;
+    draggedStore.dragged = null;
+    var sourceIndex = event.dataTransfer.getData("text/plain")
+    var targetIndex = event.target.getAttribute('aria-valuenow')
+
+    var isHandSource = false;
+    var isFieldSource = false;
+    var isFieldTarget = false;
+    var isPlayerTarget = false;
+
+    while (currentElement !== null) {
+        if (currentElement.classList && currentElement.classList.contains('hand-active')) {
+            isHandSource = true;
+            break;
+        } else if (currentElement.classList && currentElement.classList.contains('fieldbar')) {
+            isFieldSource = true;
+        }
+        currentElement = currentElement.parentElement;
+    }
+
+    currentElement = event.target;
+    while (currentElement !== null) {
+        if (currentElement.classList && currentElement.classList.contains('fieldbar')) {
+            isFieldTarget = true;
+            break;
+        } else if (currentElement.classList && currentElement.classList.contains('char')) {
+            isPlayerTarget = true;
+            break;
+        }
+        currentElement = currentElement.parentElement;
+    }
+
+    isHandSource ?
+        placeCard(sourceIndex, targetIndex)
+        : (isFieldSource && isFieldTarget ?
+            attack(sourceIndex, targetIndex)
+            : directAttack(sourceIndex));
+
+
+}
+
+ondragend = (event) => {
+    var slots = document.getElementsByClassName('slot');
+    for (var i = 0; i < slots.length; i++) {
+        slots[i].style.border = 'none';
+    }
+}
 </script>
 
 <template>
-    <div class="fieldbar">
-        <div v-for="slot in slots" class="slot" @dragend="placeCard()">
-            <!-- TODO: read id and card properties from json -->
-            <!-- only render when slot is filled -->
-            <Card class="card" :card-id="slot" />
+    <div class="fieldbar" draggable="false">
+        <div v-for="(slot, i) in slots" class="slot" :class="'slot' + i" :style="{ pointerEvents: 'all' }"
+            :aria-valuenow="i" draggable="true">
+            <Card v-if="slot.card !== 'none'" class="card" :card-id="slot.card.id" />
         </div>
     </div>
 </template>
@@ -41,22 +120,23 @@ var slots = [
     user-select: none;
     height: 18%;
     width: 100%;
-    pointer-events: all;
     display: flex;
     position: absolute;
     flex-direction: row;
     justify-content: center;
-    z-index: 30;
+    pointer-events: none;
+    gap: 1%;
 }
 
 .card {
-    z-index: 1;
     aspect-ratio: 0.66;
     height: 100%;
 }
 
 .slot {
-    z-index: 1;
+    content: '';
     aspect-ratio: 0.66;
+    height: 100%;
+    z-index: 10000;
 }
 </style>

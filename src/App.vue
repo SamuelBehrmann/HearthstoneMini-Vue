@@ -1,5 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { gameState } from '@/stores/gameState.js'
+
+var state = gameState()
+
 </script>
 
 <template>

@@ -5,25 +5,17 @@ defineProps({
         type: String,
         required: true
     },
-    height: {
-        type: String,
-        required: true
-    },
 })
 
 // Variables ------
-const emit = defineEmits();
+const charHeight = "16.1%";
 
-// Methods --------
-const directAttack = () => {
-    emit('directAttack')
-}
 </script>
 
 <template>
-    <img :style="{height: height}" draggable="false" src="@/assets/images/content/medivh.gif" @dragend="directAttack()">
+    <img :style="{height: charHeight}" draggable="false" src="@/assets/images/content/medivh.gif">
 </template>
-  
+
 <style scoped>
 .img {
     width: auto;

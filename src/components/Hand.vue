@@ -1,40 +1,49 @@
 <script setup>
+import { useDraggedStore } from '@/stores/dragged';
 import Card from './Card.vue'
 
+// definitions ----
 defineProps({
   isActive: {
     type: Boolean,
     default: true
   },
+  handCards: {
+    type: Array,
+    default: []
+  }
 })
 
-var handCards = [
-  "EX1_002",
-  "EX1_002",
-  "EX1_002",
-  "EX1_002",
-  "EX1_002",
-]
+// variables ------
+
+const  draggedStore = useDraggedStore()
+
+// methods --------
+const setData = (event) => {
+  event.dataTransfer.setData("text/plain", event.target.getAttribute('aria-valuenow'));
+  draggedStore.dragged = event.target
+}
 
 </script>
 
 <template>
-    <div class="hand" :style="{height: isActive ? '23%' : '18%'}">
-        <div v-for="card in handCards" class="card" aria-valuenow="@index" draggable="true" :style="{pointerEvents: isActive ? 'all': 'none'}">
-          <div class="card-face">
-            <Card v-if="isActive" id="hand@index" :card-id="card"/>
-            <img v-else src="@/assets/images/Content/legendcardback.png" alt="" :style="{scale: 0.8}">
-          </div>
-        </div>
+  <div class="hand" :style="{ height: isActive ? '23%' : '18%' }">
+    <div v-for="(card, i) in handCards" class="card" @dragstart="setData" :aria-valuenow="i" draggable="true"
+      :style="{ pointerEvents: isActive ? 'all' : 'none' }">
+      <div class="card-face">
+        <Card v-if="isActive" :card-id="card.card.id" />
+        <img v-else src="@/assets/images/Content/legendcardback.png" alt="" :style="{ scale: 0.8 }">
       </div>
+    </div>
+  </div>
 </template>
 
 <style  lang="scss" scoped>
-
 img {
-    height: 100%;
-    
+  height: 100%;
+
 }
+
 .hand {
   height: 18%;
   width: 100%;
@@ -101,6 +110,7 @@ $total: 5;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
   &:after {
     z-index: 10;
     bottom: 0;
