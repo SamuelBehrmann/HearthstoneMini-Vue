@@ -190,6 +190,10 @@ onBeforeUnmount(() => {
   bottom: 30%;
   scale: 85%;
   z-index: 100;
+
+  &:hover {
+    scale: 90%;
+  }
 }
 
 .deck-inactive {
