@@ -49,28 +49,6 @@ const endTurn = async () => {
   })
 }
 
-const undo = async () => {
-  console.log("Undo");
-  await axios.get(CONSTANTS.endpoint + "/undo").catch((error) => {
-    console.log(error);
-  })
-}
-
-const redo = async () => {
-  console.log("Redo");
-  await axios.get(CONSTANTS.endpoint + "/redo").catch((error) => {
-    console.log(error);
-  })
-}
-
-const exit = async () => {
-  console.log("Exit");
-  await axios.get(CONSTANTS.endpoint + "/exitGame").catch((error) => {
-    console.log(error);
-  })
-  router.replace("/");
-}
-
 const drawCard = async () => {
   console.log("Draw Card");
   await axios.get(CONSTANTS.endpoint + "/drawCard").catch((error) => {
@@ -139,11 +117,11 @@ onBeforeUnmount(() => {
 
 <template>
   <header>
-    <nav>
-      <a @click="undo()">Undo</a>
-      <a @click="redo()">Redo</a>
-      <a @click="exit()">Exit</a>
-    </nav>
+<!--    <nav>-->
+<!--      <a @click="undo()">Undo</a>-->
+<!--      <a @click="redo()">Redo</a>-->
+<!--      <a @click="exit()">Exit</a>-->
+<!--    </nav>-->
   </header>
   <div class="center">
     <div v-if="connected" class="game">
