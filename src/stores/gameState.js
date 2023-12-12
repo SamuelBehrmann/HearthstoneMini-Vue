@@ -12,7 +12,7 @@ export const gameState = defineStore("gameState", () => {
 
     websocket.onopen = function (event) {
         console.log("Connected to Websocket");
-        axios.get(CONSTANTS.endpoint + "/redo").then((response) => {
+        axios.get(CONSTANTS.endpoint + "/game").then((response) => {
             data.value = response.data;
         });
         connected.value = true;

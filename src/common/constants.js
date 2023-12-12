@@ -1,5 +1,5 @@
 
-const endpoint = "localhost:9000";//"192.168.178.25:9000";
+const endpoint = "192.168.178.25:9000/api"; //"localhost:9000";
 const endpointURL = "http://" + endpoint;
 const websocketURL = "ws://" + endpoint + "/websocket";
 

@@ -41,12 +41,14 @@ const resizeHandler = () => {
   game.style.height = newSize.height;
   game.style.width = newSize.width;
 }
+
 const endTurn = async () => {
   console.log("End Turn");
   await axios.get(CONSTANTS.endpoint + "/endTurn").catch((error) => {
     console.log(error);
   })
 }
+
 const undo = async () => {
   console.log("Undo");
   await axios.get(CONSTANTS.endpoint + "/undo").catch((error) => {
