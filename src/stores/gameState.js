@@ -5,7 +5,27 @@ import axios from "axios";
 
 export const gameState = defineStore("gameState", () => {
     var connected = ref(false);
-    var data = ref({});
+    var data = ref({players: [{
+        gamebar: {
+            hand: [],
+            deck: [],
+        },
+        fieldbar: {
+            cardarea: {
+                row: [],
+            },
+        }
+    }, {
+        gamebar: {
+            hand: [],
+            deck: [],
+        },
+        fieldbar: {
+            cardarea: {
+                row: [],
+            },
+        }
+    }]});
 
     const websocket = new WebSocket(CONSTANTS.websocketUrl);
     websocket.setTimeout;
