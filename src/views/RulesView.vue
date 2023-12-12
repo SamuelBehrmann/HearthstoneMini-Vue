@@ -15,7 +15,7 @@ const rules = ["Each player starts with the same amount of HP and Mana.",
 <template>
   <div id="background"></div>
   <div class="rules" >
-    <div class="rule" v-for="rule in rules">
+    <div class="rule" v-for="(rule , i) in rules" :key="i">
       <img class="indicator" src="@/assets/images/rules/indicator.webp" alt="">
       <span>{{ rule }}</span>
     </div>

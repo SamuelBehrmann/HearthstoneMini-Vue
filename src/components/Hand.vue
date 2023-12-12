@@ -28,7 +28,7 @@ const setData = (event) => {
 
 <template>
   <div class="hand" :style="{ height: isActive ? '23%' : '18%' }">
-    <div v-for="(card, i) in handCards" class="card" @dragstart="setData" :aria-valuenow="i" draggable="true"
+    <div v-for="(card, i) in handCards" :key="i" class="card" @dragstart="setData" :aria-valuenow="i" draggable="true"
       :style="{ pointerEvents: isActive ? 'all' : 'none' }">
       <div class="card-face">
         <Card v-if="isActive" :card-id="card.card.id" />

@@ -98,7 +98,7 @@ ondrop = (event) => {
 
 }
 
-ondragend = (event) => {
+ondragend = (_) => {
     var slots = document.getElementsByClassName('slot');
     for (var i = 0; i < slots.length; i++) {
         slots[i].style.border = 'none';
@@ -109,7 +109,7 @@ ondragend = (event) => {
 
 <template>
     <div class="fieldbar" draggable="false">
-        <div v-for="(slot, i) in slots" class="slot" :class="'slot' + i" :style="{ pointerEvents: 'all' }" :aria-valuenow="i" draggable="false">
+        <div v-for="(slot, i) in slots" :key="i" class="slot" :class="'slot' + i" :style="{ pointerEvents: 'all' }" :aria-valuenow="i" draggable="false">
             <Card v-if="slot.card !== 'none'" :aria-valuenow="i" class="card" :card-id="slot.card.id" draggable="true"/>
         </div>
     </div>

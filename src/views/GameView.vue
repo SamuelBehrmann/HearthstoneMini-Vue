@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue';
+import { onMounted, onBeforeUnmount, watch, onUpdated } from 'vue';
 import PlayerHero from '@/components/PlayerHero.vue';
 import Fieldbar from '@/components/Fieldbar.vue';
 import Hand from '@/components/Hand.vue';
@@ -37,7 +37,7 @@ const calculateSize = () => {
 const resizeHandler = () => {
   var newSize = calculateSize();
   var game = document.getElementsByClassName("game")[0];
-
+  
   game.style.height = newSize.height;
   game.style.width = newSize.width;
 }
@@ -168,6 +168,10 @@ onBeforeUnmount(() => {
   bottom: 30%;
   scale: 85%;
   z-index: 100;
+
+  &:hover {
+    scale: 90%;
+  }
 }
 
 .deck-inactive {

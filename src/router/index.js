@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import GameView from '../views/GameView.vue'
+import RulesView from '../views/RulesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +18,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/GameView.vue'),
+      component: GameView,
       meta: {
         title: 'Game'
       },
@@ -32,7 +34,7 @@ const router = createRouter({
       path: '/gameSettings'
     },
     {
-      component: () => import('../views/RulesView.vue'),
+      component: RulesView,
       meta: {
         title: 'Rules'
       },
@@ -42,7 +44,7 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   document.title = to.meta?.title ?? 'Default Title'
 })
 export default router
