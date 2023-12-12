@@ -1,4 +1,5 @@
 <script setup>
+// definitions ----
 defineProps({
     isActive: {
         type: Boolean,
@@ -11,10 +12,10 @@ defineProps({
 })
 const emit = defineEmits()
 
+// methods --------
 const drawCard = () => {
     emit('drawCard')
 }
-const deck = []
 
 </script>
 
