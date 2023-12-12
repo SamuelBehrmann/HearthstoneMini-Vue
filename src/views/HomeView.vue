@@ -15,6 +15,7 @@ const openRulesPage = () => {
 const openGameSettings = () => {
   router.push('/GameSettings')
 }
+
 </script>
 
 <template>
