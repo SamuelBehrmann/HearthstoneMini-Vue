@@ -5,27 +5,7 @@ import axios from "axios";
 
 export const gameState = defineStore("gameState", () => {
     var connected = ref(false);
-    var data = ref({players: [{
-        gamebar: {
-            hand: [],
-            deck: [],
-        },
-        fieldbar: {
-            cardarea: {
-                row: [],
-            },
-        }
-    }, {
-        gamebar: {
-            hand: [],
-            deck: [],
-        },
-        fieldbar: {
-            cardarea: {
-                row: [],
-            },
-        }
-    }]});
+    var data = ref({});
 
     const websocket = new WebSocket(CONSTANTS.websocketUrl);
     websocket.setTimeout;
@@ -34,8 +14,8 @@ export const gameState = defineStore("gameState", () => {
         console.log("Connected to Websocket");
         axios.get(CONSTANTS.endpoint + "/game").then((response) => {
             data.value = response.data;
+            connected.value = true;
         });
-        connected.value = true;
     }
 
     websocket.onclose = function () {
