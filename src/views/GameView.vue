@@ -9,7 +9,6 @@ import CONSTANTS from '../common/constants.js';
 import { gameState } from '@/stores/gameState';
 import { useDraggedStore } from '@/stores/dragged';
 import { storeToRefs } from 'pinia';
-import router from '@/router';
 import HearthstoneButton from '@/components/HearthstoneButton.vue';
 
 /// Variables
