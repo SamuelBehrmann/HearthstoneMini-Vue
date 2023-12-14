@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, onBeforeUnmount, watch, nextTick} from 'vue';
 import PlayerHero from '@/components/PlayerHero.vue';
-import Fieldbar from '@/components/fieldbar.vue';
+import Fieldbar from '@/components/Fieldbar.vue';
 import Hand from '@/components/Hand.vue';
 import Deck from '@/components/Deck.vue';
 import axios from 'axios';
