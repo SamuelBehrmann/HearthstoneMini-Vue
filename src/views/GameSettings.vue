@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import HearthstoneButton from '@/components/HearthstoneButton.vue'
 import axios from 'axios'
 import CONSTANTS from '@/common/constants.js'
-import router from '@/router'
+import router from '@/router/router.js'
 
 
 const playerName1 = ref('')
