@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import CONSTANTS from '@/common/constants.js'
-import router from '@/router/index.js'
+import router from '@/router/router.js'
 
 const route = useRoute()
 
