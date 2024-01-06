@@ -4,6 +4,8 @@ import PlayerHero from '@/components/PlayerHero.vue';
 import Fieldbar from '@/components/Fieldbar.vue';
 import Hand from '@/components/Hand.vue';
 import Deck from '@/components/Deck.vue';
+import Mana from '@/components/Mana.vue';
+import HeallthPoints from '@/components/HealthPoints.vue';
 import axios from 'axios';
 import CONSTANTS from '../common/constants.js';
 import { gameState } from '@/stores/gameState';
@@ -125,6 +127,8 @@ onBeforeUnmount(() => {
   <div class="center">
     <div v-if="connected" class="game">
       <!-- TODO: Fix gifsrc  -->
+      <Mana class="mana-inactive" :total="data.players[1].gamebar.mana.max" :current="data.players[1].gamebar.mana.value"/>
+      <HeallthPoints class="hp-inactive" :currentHP="data.players[1].gamebar.hp.value" :maxHP="data.players[1].gamebar.hp.max"/>
       <Hand class="hand-inactive" :is-active="false" :hand-cards="data.players[1].gamebar.hand" />
       <PlayerHero class="char inactive-char" src="@/assets/images/content/medivh.gif" @drop="directAttack" />
       <Deck class="deck-inactive" :is-active="false" :size="data.players[1].gamebar.deck.length" draggable="false" />
@@ -135,6 +139,8 @@ onBeforeUnmount(() => {
       <PlayerHero class="char active-char" src="@/assets/images/content/medivh.gif" />
       <Deck class="deck-active" @drawCard="drawCard()" :size="data.players[0].gamebar.deck.length" />
       <Hand class="hand-active" :hand-cards="data.players[0].gamebar.hand" />
+      <Mana class="mana-active" :total="data.players[0].gamebar.mana.max" :current="data.players[0].gamebar.mana.value"/>
+      <HeallthPoints class="hp-active" :currentHP="data.players[0].gamebar.hp.value" :maxHP="data.players[0].gamebar.hp.max"/>
     </div>
     <div v-else class="game"></div>
   </div>
@@ -149,6 +155,42 @@ onBeforeUnmount(() => {
   position: fixed;
   display: block;
   pointer-events: none;
+}
+
+.hp-active {
+  position: absolute;
+  bottom: 5.7%;
+  right: 5.7%;
+  z-index: 3;
+  width: 21%;
+  height: 3%;
+  border-radius: 10px;
+}
+
+.mana-active {
+  pointer-events: none;
+  position: absolute;
+  bottom: 4.8%;
+  right: 27.5%;
+  z-index: 2;
+}
+
+.hp-inactive {
+  position: absolute;
+  top: 4.9%;
+  right: 7.7%;
+  z-index: 3;
+  width: 21%;
+  height: 3%;
+  border-radius: 10px;
+}
+
+.mana-inactive {
+  pointer-events: none;
+  position: absolute;
+  top: 4%;
+  right: 29.8%;
+  z-index: 2;
 }
 
 #endTurnButton {
