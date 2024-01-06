@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onBeforeUnmount, watch, onUpdated } from 'vue';
+import { onMounted, onBeforeUnmount, watch, nextTick} from 'vue';
 import PlayerHero from '@/components/PlayerHero.vue';
 import Fieldbar from '@/components/Fieldbar.vue';
 import Hand from '@/components/Hand.vue';
@@ -12,10 +12,12 @@ import { gameState } from '@/stores/gameState';
 import { useDraggedStore } from '@/stores/dragged';
 import { storeToRefs } from 'pinia';
 import HearthstoneButton from '@/components/HearthstoneButton.vue';
+import { useRoute } from 'vue-router';
 
 /// Variables
 const { connected, data } = storeToRefs(gameState());
 const draggedStore = useDraggedStore();
+const route = useRoute();
 
 /// Methods
 const calculateSize = () => {
@@ -78,7 +80,7 @@ const directAttack = async (event) => {
 
   if (sourceIndex) {
     await axios.post(CONSTANTS.endpoint + "/directAttack", {
-      "activeFieldIndex": sourceIndex
+            "activeFieldIndex": sourceIndex
     }, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -114,19 +116,16 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', resizeHandler);
 });
 
+watch(connected, (_) => {
+  nextTick(resizeHandler);
+});
+
 </script>
 
 <template>
-  <header>
-<!--    <nav>-->
-<!--      <a @click="undo()">Undo</a>-->
-<!--      <a @click="redo()">Redo</a>-->
-<!--      <a @click="exit()">Exit</a>-->
-<!--    </nav>-->
-  </header>
   <div class="center">
     <div v-if="connected" class="game">
-      <!-- TODO: Fix gifsrc  -->
+      <!-- TODO: Fix src  -->
       <Mana class="mana-inactive" :total="data.players[1].gamebar.mana.max" :current="data.players[1].gamebar.mana.value"/>
       <HeallthPoints class="hp-inactive" :currentHP="data.players[1].gamebar.hp.value" :maxHP="data.players[1].gamebar.hp.max"/>
       <Hand class="hand-inactive" :is-active="false" :hand-cards="data.players[1].gamebar.hand" />
@@ -136,6 +135,7 @@ onBeforeUnmount(() => {
       <HearthstoneButton id="endTurnButton" label="End Turn" :variant="'gold'" @hearthstone-button-clicked="endTurn()"/>
       <Fieldbar class="fieldbar-active" @placeCard="placeCard" @attack="attack"
         :slots="data.players[0].fieldbar.cardarea.row" />
+      <!-- TODO: Fix src  -->
       <PlayerHero class="char active-char" src="@/assets/images/content/medivh.gif" />
       <Deck class="deck-active" @drawCard="drawCard()" :size="data.players[0].gamebar.deck.length" />
       <Hand class="hand-active" :hand-cards="data.players[0].gamebar.hand" />
