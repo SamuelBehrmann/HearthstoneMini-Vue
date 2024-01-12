@@ -6,6 +6,8 @@ import axios from "axios";
 export const gameState = defineStore("gameState", () => {
     var connected = ref(false);
     var data = ref({});
+    var max_reconnect_attempts = 10;
+    var reconnect_attempts = 0;
 
     const websocket = connectWebsocket();
 
@@ -16,6 +18,11 @@ export const gameState = defineStore("gameState", () => {
     };
 
     function connectWebsocket() {
+        if (reconnect_attempts >= max_reconnect_attempts) {
+            console.log("Max reconnect attempts reached!");
+            return;
+        }
+        reconnect_attempts++;
         const websocket = new WebSocket(CONSTANTS.websocketUrl);
         websocket.setTimeout;
 
