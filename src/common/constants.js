@@ -1,7 +1,7 @@
 
-const endpoint = "localhost:9000/api";
-const endpointURL = "http://" + endpoint;
-const websocketURL = "ws://" + endpoint + "/websocket";
+const endpoint = "stage1111.fly.dev/api";
+const endpointURL = "https://" + endpoint;
+const websocketURL = "wss://" + endpoint + "/websocket";
 
 const CONSTANTS = {
     endpoint: endpointURL,
