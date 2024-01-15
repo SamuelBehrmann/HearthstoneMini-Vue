@@ -129,14 +129,13 @@ watch(connected, (_) => {
       <Mana class="mana-inactive" :total="data.players[1].gamebar.mana.max" :current="data.players[1].gamebar.mana.value"/>
       <HeallthPoints class="hp-inactive" :currentHP="data.players[1].gamebar.hp.value" :maxHP="data.players[1].gamebar.hp.max"/>
       <Hand class="hand-inactive" :is-active="false" :hand-cards="data.players[1].gamebar.hand" />
-      <PlayerHero class="char inactive-char" src="@/assets/images/content/medivh.gif" @drop="directAttack" />
+      <PlayerHero class="char inactive-char" :usr="data.players[0].id === 1" @drop="directAttack" />
       <Deck class="deck-inactive" :is-active="false" :size="data.players[1].gamebar.deck.length" draggable="false" />
       <Fieldbar class="fieldbar-inactive" :slots="data.players[1].fieldbar.cardarea.row" />
       <HearthstoneButton id="endTurnButton" label="End Turn" :variant="'gold'" @hearthstone-button-clicked="endTurn()"/>
       <Fieldbar class="fieldbar-active" @placeCard="placeCard" @attack="attack"
         :slots="data.players[0].fieldbar.cardarea.row" />
-      <!-- TODO: Fix src  -->
-      <PlayerHero class="char active-char" src="@/assets/images/content/medivh.gif" />
+      <PlayerHero class="char active-char" :usr="data.players[0].id === 2" />
       <Deck class="deck-active" @drawCard="drawCard()" :size="data.players[0].gamebar.deck.length" />
       <Hand class="hand-active" :hand-cards="data.players[0].gamebar.hand" />
       <Mana class="mana-active" :total="data.players[0].gamebar.mana.max" :current="data.players[0].gamebar.mana.value"/>

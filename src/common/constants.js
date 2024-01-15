@@ -1,5 +1,5 @@
 
-const endpoint = "stage1111.fly.dev/api";
+const endpoint = "hearthstonemini-backend.fly.dev/api";
 const endpointURL = "https://" + endpoint;
 const websocketURL = "wss://" + endpoint + "/websocket";
 
