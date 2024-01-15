@@ -1,0 +1,50 @@
+<HTML>
+    <body>
+        <div class="flexbox">
+            <h1>Offline</h1>
+            <p>Sorry, you are offline</p>
+            <p>Please try again once you have established a better internet connection</p>
+            <img src="Hearthstone-Logo.png">
+        </div>
+    </body>
+
+    <style>
+        img {
+            width: 40%;
+            position: absolute;
+            top: 0;
+            right:-4%;
+            transform: rotate(30deg);
+        }
+        body {
+            background-image: url('loading.gif');
+            height: 100vh;
+            width: 100vw;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0;
+            overflow: hidden;
+        }
+        H1, P {
+            color: white;
+            text-align: center;
+            font-family: 'Fondamento', cursive;
+            text-shadow: 0 0 5px gold;
+        }
+        H1 {
+            font-size: 3rem;
+        }
+        P {
+            font-size: 2em;
+        }
+        .flexbox{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+</HTML>

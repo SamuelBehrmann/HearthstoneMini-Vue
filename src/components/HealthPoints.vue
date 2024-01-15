@@ -35,6 +35,8 @@
   .fill {
     height: 100%;
     background-color: #4caf50; /* Green color */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
   </style>
   

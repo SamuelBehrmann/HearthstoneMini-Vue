@@ -22,6 +22,10 @@ const  draggedStore = useDraggedStore()
 const setData = (event) => {
   event.dataTransfer.setData("text/plain", event.target.getAttribute('aria-valuenow'));
   draggedStore.dragged = event.target
+  const img = event.target.querySelector('img');
+  if (img) {
+    event.dataTransfer.setDragImage(img, 0, 0);
+  }
 }
 
 </script>

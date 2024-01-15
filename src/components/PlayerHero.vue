@@ -1,10 +1,11 @@
 <script setup>
 // Define ---------
 defineProps({
-    src: {
-        type: String,
+    usr: {
+        type: Boolean,
         required: true
     },
+
 })
 
 // Variables ------
@@ -13,7 +14,8 @@ const charHeight = "16.1%";
 </script>
 
 <template>
-    <img class="playerHero" :style="{height: charHeight}" draggable="false" src="@/assets/images/content/medivh.gif">
+    <img v-if="usr" class="playerHero" :style="{height: charHeight}" draggable="false" src="@/assets/images/content/medivh.gif">
+    <img v-else="usr" class="playerHero" :style="{height: charHeight}" draggable="false" src="@/assets/images/content/thrall.gif">
 </template>
 
 <style scoped>
