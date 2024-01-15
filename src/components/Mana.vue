@@ -31,6 +31,7 @@ span {
     text-shadow: 0 0 5px #000;
     font-size: 0.8vw; 
 }
+
 .flex-box {
     position: relative;
     display: flex;

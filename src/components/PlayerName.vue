@@ -21,7 +21,7 @@ span {
     font-family: 'Fondamento', cursive;
     font-weight: bold;
     text-shadow: 0 0 5px #000;
-    font-size: 1.5vw; 
+    font-size: 1.2vw; 
     
 }
 
