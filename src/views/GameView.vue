@@ -168,7 +168,7 @@ watch(connected, (_) => {
 
 .playerName-inactive {
   position: absolute;
-  top: 4.5%;
+  top: 4.6%;
   right: 7%;
   z-index: 4;
   width: 21%;

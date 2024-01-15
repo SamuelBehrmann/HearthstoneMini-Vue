@@ -17,10 +17,12 @@ defineProps({
 <style scoped>
 
 span {
-    font-size: 1.3rem;
     color: black;
     font-family: 'Fondamento', cursive;
-
+    font-weight: bold;
+    text-shadow: 0 0 5px #000;
+    font-size: 1.5vw; 
+    
 }
 
 </style>
