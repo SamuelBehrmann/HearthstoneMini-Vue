@@ -24,6 +24,9 @@ self.addEventListener('install', (event) => {
     caches.open('offline-cache').then((cache) => {
       return cache.addAll([
           'offline.html',
+          'favicon.png',
+          'loading.gif',
+          'Hearthstone-Logo.png'
       ]);
     })
   );
