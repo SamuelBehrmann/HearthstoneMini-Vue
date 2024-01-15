@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, onBeforeUnmount, watch, nextTick} from 'vue';
 import PlayerHero from '@/components/PlayerHero.vue';
+import PlayerName from '@/components/PlayerName.vue';
 import Fieldbar from '@/components/Fieldbar.vue';
 import Hand from '@/components/Hand.vue';
 import Deck from '@/components/Deck.vue';
@@ -125,7 +126,7 @@ watch(connected, (_) => {
 <template>
   <div class="center">
     <div v-if="connected" class="game">
-      <!-- TODO: Fix src  -->
+      <PlayerName class="playerName-inactive" :name="data.players[1].name" />
       <Mana class="mana-inactive" :total="data.players[1].gamebar.mana.max" :current="data.players[1].gamebar.mana.value"/>
       <HeallthPoints class="hp-inactive" :currentHP="data.players[1].gamebar.hp.value" :maxHP="data.players[1].gamebar.hp.max"/>
       <Hand class="hand-inactive" :is-active="false" :hand-cards="data.players[1].gamebar.hand" />
@@ -140,6 +141,7 @@ watch(connected, (_) => {
       <Hand class="hand-active" :hand-cards="data.players[0].gamebar.hand" />
       <Mana class="mana-active" :total="data.players[0].gamebar.mana.max" :current="data.players[0].gamebar.mana.value"/>
       <HeallthPoints class="hp-active" :currentHP="data.players[0].gamebar.hp.value" :maxHP="data.players[0].gamebar.hp.max"/>
+      <PlayerName class="playerName-active" :name="data.players[0].name" />
     </div>
     <div v-else class="game"></div>
   </div>
@@ -154,6 +156,22 @@ watch(connected, (_) => {
   position: fixed;
   display: block;
   pointer-events: none;
+}
+
+.playerName-active {
+  position: absolute;
+  bottom: 5.3%;
+  right: 5%;
+  z-index: 3;
+  width: 21%;
+}
+
+.playerName-inactive {
+  position: absolute;
+  top: 4.5%;
+  right: 7%;
+  z-index: 4;
+  width: 21%;
 }
 
 .hp-active {
